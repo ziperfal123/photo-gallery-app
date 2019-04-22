@@ -15,15 +15,11 @@ const styles = StyleSheet.create({
   }
 });
 
-
-
 const ImageItem = props => {
   const { item } = props;
 
   handleImagePress = () => {
     props.displayImage(item.largeImageURL);
-
-    // this.props.displayImage(item.largeImageURL);
   };
 
   return (

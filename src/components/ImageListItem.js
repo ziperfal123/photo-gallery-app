@@ -1,5 +1,8 @@
 import React from "react";
 import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { connect } from "react-redux";
+
+import { displayImage } from "../actions/imagesActions";
 
 const styles = StyleSheet.create({
   containerStyle: {
@@ -37,8 +40,7 @@ const ImageListItem = props => {
   const { title, views, likes, imgSource } = props;
 
   handleImagePress = () => {
-    console.log("Pressed");
-    console.log(imgSource);
+    props.displayImage(imgSource);
   };
 
   return (
@@ -62,4 +64,7 @@ const ImageListItem = props => {
   );
 };
 
-export default ImageListItem;
+export default connect(
+  null,
+  { displayImage }
+)(ImageListItem);
