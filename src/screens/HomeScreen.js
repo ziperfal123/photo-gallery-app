@@ -77,6 +77,7 @@ class HomeScreen extends Component {
   }
 
   handleGridViewPress() {
+    // this.props.navigation.push("FullScreenDisplay");
     console.log("Grid View");
     this.setState({ shouldGridDisplay: true });
   }
@@ -86,7 +87,10 @@ class HomeScreen extends Component {
   }
 
   render() {
-    const { images } = this.props;
+    const { images, selecetedImageURL } = this.props;
+    if (selecetedImageURL != "" && selecetedImageURL != null) {
+      this.props.navigation.push("FullScreenDisplay");
+    }
     return (
       <View style={styles.container}>
         <SearchBarComp />
