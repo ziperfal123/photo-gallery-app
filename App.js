@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-navigation";
+import { StyleSheet } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
+// import { Provider } from "react-redux";
+// import store from "./src/store";
 
-import Header from "./src/components/Header";
 import HomeScreen from "./src/screens/HomeScreen";
 import FavoritesScreen from "./src/screens/FavoritesScreen";
 
@@ -39,10 +39,5 @@ const AppStackNavigator = createStackNavigator(
   }
 );
 
-class App extends Component {
-  render() {
-    return <AppStackNavigator />;
-  }
-}
-
-export default createAppContainer(AppStackNavigator);
+const NavigatorContainer = createAppContainer(AppStackNavigator);
+export default NavigatorContainer;
