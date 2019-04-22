@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, Text } from "react-native";
 import { connect } from "react-redux";
 
 const styles = StyleSheet.create({
@@ -21,6 +21,7 @@ const FullImageDisplayScreen = props => {
           uri: `${selecetedImageURL}`
         }}
       />
+      <Text>LIKE!</Text>
     </View>
   );
 };

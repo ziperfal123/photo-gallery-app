@@ -1,6 +1,6 @@
 import { FETCH_IMAGES } from "./actionTypes";
 import { DISPLAY_IMAGE } from "./actionTypes";
-
+import { CLEAN_SELECTED_IMAGE } from "./actionTypes";
 function optimizeQueryFunc(searchQueryInput) {
   let optimizedSearchQueryInput = searchQueryInput.replace(/ /g, "+");
   return optimizedSearchQueryInput;
@@ -24,8 +24,6 @@ export const fetchImages = searchQueryInput => dispatch => {
     .then(res => res.json())
     .then(data => {
       console.log("dispatch!");
-      console.log(data);
-      console.log(data.hits);
       dispatch({
         type: FETCH_IMAGES,
         payload: data.hits
@@ -37,5 +35,12 @@ export const displayImage = urlToDisplay => dispatch => {
   dispatch({
     type: DISPLAY_IMAGE,
     payload: urlToDisplay
+  });
+};
+
+export const cleanSelectedImage = () => dispatch => {
+  dispatch({
+    type: CLEAN_SELECTED_IMAGE,
+    payload: null
   });
 };

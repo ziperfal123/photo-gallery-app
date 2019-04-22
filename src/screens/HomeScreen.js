@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import SearchBarComp from "../components/SearchBarComp";
 import ImageItem from "../components/ImageItem";
 import ImageListItem from "../components/ImageListItem";
-import { fetchImages } from "../actions/imagesActions";
+import { fetchImages, cleanSelectedImage } from "../actions/imagesActions";
 
 const styles = StyleSheet.create({
   imagesGridViewContainer: {
@@ -77,16 +77,18 @@ class HomeScreen extends Component {
   }
 
   handleGridViewPress() {
-    // this.props.navigation.push("FullScreenDisplay");
     console.log("Grid View");
+    this.props.cleanSelectedImage();
     this.setState({ shouldGridDisplay: true });
   }
   handleListViewPress() {
     console.log("List View");
+    this.props.cleanSelectedImage();
     this.setState({ shouldGridDisplay: false });
   }
 
   render() {
+    console.log("renderingggg whowwooooooo");
     const { images, selecetedImageURL } = this.props;
     if (selecetedImageURL != "" && selecetedImageURL != null) {
       this.props.navigation.push("FullScreenDisplay");
@@ -130,5 +132,5 @@ mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { fetchImages }
+  { fetchImages, cleanSelectedImage }
 )(HomeScreen);

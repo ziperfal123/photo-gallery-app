@@ -1,5 +1,8 @@
-import { FETCH_IMAGES } from "../actions/actionTypes";
-import { DISPLAY_IMAGE } from "../actions/actionTypes";
+import {
+  FETCH_IMAGES,
+  DISPLAY_IMAGE,
+  CLEAN_SELECTED_IMAGE
+} from "../actions/actionTypes";
 
 const initialState = {
   images: [],
@@ -19,6 +22,12 @@ export default function(state = initialState, action) {
         ...state,
         selecetedImageURL: action.payload
       };
+    case CLEAN_SELECTED_IMAGE:
+      return {
+        ...state,
+        selecetedImageURL: ""
+      };
+
     default:
       return state;
   }
