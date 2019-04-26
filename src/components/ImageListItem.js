@@ -37,10 +37,10 @@ const styles = StyleSheet.create({
 });
 
 const ImageListItem = props => {
-  const { title, views, likes, imgSource } = props;
+  const { item, title, views, likes, imgSource } = props;
 
   handleImagePress = () => {
-    props.displayImage(imgSource);
+    props.displayImage(item);
   };
 
   return (

@@ -1,23 +1,61 @@
-import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { Component } from 'react'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { connect } from 'react-redux'
+
+import ImageItem from '../components/ImageItem'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "red"
+    backgroundColor: '#F5FCFF'
+  },
+  imagesGridViewContainer: {
+    height: '100%',
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    backgroundColor: '#F5FCFF',
+    marginLeft: 2.5
   }
-});
+})
 
-export default class FavoritesScreen extends Component {
+class FavoritesScreen extends Component {
+  constructor(props) {
+    super(props)
+  }
+
   static navigationOptions = () => {
-    let title = "Favorites";
-    return { title };
-  };
+    const title = 'Favorites'
+    return { title }
+  }
+  eachImage(itemParam, key) {
+    console.log(itemParam)
+    const item = {
+      largeImageURL: itemParam.largeImageURL
+    }
+    return <ImageItem key={key} item={item} imgSource={item.largeImageURL} />
+  }
+
   render() {
+    const { favoriteImagesList } = this.props
+    console.log(favoriteImagesList)
     return (
       <View style={styles.container}>
-        <Text>FavoritesScreen!</Text>
+        <ScrollView>
+          <View style={styles.imagesGridViewContainer}>
+            {!favoriteImagesList ? <Text>00000</Text> : favoriteImagesList.map(this.eachImage)}
+          </View>
+        </ScrollView>
       </View>
-    );
+    )
   }
 }
+
+mapStateToProps = state => ({
+  favoriteImagesList: state.imagesReducer.arrOfFavoriteImages
+})
+
+export default connect(
+  mapStateToProps,
+  null
+)(FavoritesScreen)

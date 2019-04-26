@@ -1,26 +1,27 @@
-import React, { Component } from "react";
-import { View } from "react-native";
-import { connect } from "react-redux";
-import { SearchBar } from "react-native-elements";
+import React, { Component } from 'react'
+import { View } from 'react-native'
+import { connect } from 'react-redux'
+import { SearchBar } from 'react-native-elements'
 
-import { fetchImages } from "../actions/imagesActions";
+import { fetchImages, cleanSelectedImage } from '../actions/imagesActions'
 
 class SearchBarComp extends Component {
   state = {
-    searchValue: ""
-  };
+    searchValue: ''
+  }
 
   updateSearch = searchValue => {
-    this.setState({ searchValue });
-  };
+    this.setState({ searchValue })
+  }
 
   handleSubmit = () => {
-    console.log(this.searchRef.props.value);
-    this.props.fetchImages(this.searchRef.props.value);
-  };
+    console.log(this.searchRef.props.value)
+    this.props.cleanSelectedImage()
+    this.props.fetchImages(this.searchRef.props.value)
+  }
 
   render() {
-    const { searchValue } = this.state;
+    const { searchValue } = this.state
 
     return (
       <View>
@@ -30,16 +31,16 @@ class SearchBarComp extends Component {
           onSubmitEditing={this.handleSubmit}
           value={searchValue}
           ref={searchRef => {
-            this.searchRef = searchRef;
+            this.searchRef = searchRef
           }}
-          lightTheme={(platform = "default")} // YES????????
+          lightTheme={(platform = 'default')} // YES????????
         />
       </View>
-    );
+    )
   }
 }
 
 export default connect(
   null,
-  { fetchImages }
-)(SearchBarComp);
+  { fetchImages, cleanSelectedImage }
+)(SearchBarComp)
