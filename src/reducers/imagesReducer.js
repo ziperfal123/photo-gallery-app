@@ -3,14 +3,15 @@ import {
   DISPLAY_IMAGE,
   CLEAN_SELECTED_IMAGE,
   FETCH_FAVORITES_IMAGES_FROM_ASYNC_STORAGE,
-  PUSH_IMAGE_TO_FAVORITES
+  PUSH_IMAGE_TO_FAVORITES,
+  CHANGE_FIRST_SEARCH_FLAG
 } from '../actions/actionTypes'
 
 const initialState = {
   images: [],
   selecetedImageItem: '',
-  selecetedImageURL: '',
-  arrOfFavoriteImages: []
+  arrOfFavoriteImages: [],
+  didFirstSearchWasMadeAlready: false
 }
 
 export default function(state = initialState, action) {
@@ -24,14 +25,12 @@ export default function(state = initialState, action) {
     case DISPLAY_IMAGE:
       return {
         ...state,
-        selecetedImageItem: action.payload,
-        selecetedImageURL: action.payload.largeImageURL
+        selecetedImageItem: action.payload
       }
     case CLEAN_SELECTED_IMAGE:
       return {
         ...state,
-        selecetedImageItem: '',
-        selecetedImageURL: ''
+        selecetedImageItem: ''
       }
     case FETCH_FAVORITES_IMAGES_FROM_ASYNC_STORAGE:
       return {
@@ -42,6 +41,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         arrOfFavoriteImages: state.arrOfFavoriteImages.concat(action.payload)
+      }
+    case CHANGE_FIRST_SEARCH_FLAG:
+      return {
+        ...state,
+        didFirstSearchWasMadeAlready: true
       }
     default:
       return state

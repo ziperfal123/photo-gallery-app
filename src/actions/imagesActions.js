@@ -3,7 +3,8 @@ import {
   DISPLAY_IMAGE,
   CLEAN_SELECTED_IMAGE,
   FETCH_FAVORITES_IMAGES_FROM_ASYNC_STORAGE,
-  PUSH_IMAGE_TO_FAVORITES
+  PUSH_IMAGE_TO_FAVORITES,
+  CHANGE_FIRST_SEARCH_FLAG
 } from './actionTypes'
 import AsyncStorage from '@react-native-community/async-storage'
 
@@ -64,5 +65,12 @@ export const fetchFavoritesImagesFromAsyncStorage = () => async dispatch => {
   dispatch({
     type: FETCH_FAVORITES_IMAGES_FROM_ASYNC_STORAGE,
     payload: favoriteImagesFromAsyncStorage
+  })
+}
+
+export const changeFirstSearchFlag = () => dispatch => {
+  dispatch({
+    type: CHANGE_FIRST_SEARCH_FLAG,
+    payload: true
   })
 }

@@ -3,7 +3,7 @@ import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { connect } from 'react-redux'
 
-import { pushImageToFavoritesInStore } from '../actions/imagesActions'
+import { pushImageToFavoritesInStore, cleanSelectedImage } from '../actions/imagesActions'
 
 const styles = StyleSheet.create({
   container: {
@@ -36,16 +36,16 @@ async function saveImageURLToAsyncStorage(selecetedImageObj) {
 }
 
 const FullImageDisplayScreen = props => {
-  const { selecetedImageItem, selecetedImageURL, arrOfFavoriteImages } = props
+  const { selecetedImageItem, arrOfFavoriteImages } = props
   console.dir(selecetedImageItem)
-  // saveImageURLToAsyncStorage(selecetedImageItem)
-  // props.pushImageToFavoritesInStore(selecetedImageItem)
 
   handleLikeBtnPress = async () => {
     console.dir('selecetedImageItem')
     console.dir(selecetedImageItem.id)
     saveImageURLToAsyncStorage(selecetedImageItem)
-    // props.pushImageToFavoritesInStore(selecetedImageItem)
+    saveImageURLToAsyncStorage(selecetedImageItem)
+    props.pushImageToFavoritesInStore(selecetedImageItem)
+    props.cleanSelectedImage()
 
     // await AsyncStorage.removeItem('listOfFavoriteImagesURL', (e, er) => {
     //   console.log('deleted!')
@@ -59,23 +59,12 @@ const FullImageDisplayScreen = props => {
     return false
   }
 
-  // tmpFunc = async selecetedImageObj => {
-  //   const new_ImagesIDsFavoritesList = []
-  //   new_ImagesIDsFavoritesList.push(selecetedImageObj)
-  //   await AsyncStorage.setItem(
-  //     'listOfFavoriteImagesURL',
-  //     JSON.stringify(new_ImagesIDsFavoritesList)
-  //   )
-  //   props.pushImageToFavoritesInStore(selecetedImageObj)
-  //   console.log('pushed!')
-  // }
-
   return (
     <View style={styles.container}>
       <Image
         style={styles.imageStyle}
         source={{
-          uri: `${selecetedImageURL}`
+          uri: `${selecetedImageItem.largeImageURL}`
         }}
       />
 
@@ -94,11 +83,10 @@ const FullImageDisplayScreen = props => {
 
 mapStateToProps = state => ({
   selecetedImageItem: state.imagesReducer.selecetedImageItem,
-  selecetedImageURL: state.imagesReducer.selecetedImageURL,
   arrOfFavoriteImages: state.imagesReducer.arrOfFavoriteImages
 })
 
 export default connect(
   mapStateToProps,
-  { pushImageToFavoritesInStore }
+  { pushImageToFavoritesInStore, cleanSelectedImage }
 )(FullImageDisplayScreen)

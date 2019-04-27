@@ -3,11 +3,14 @@ import { View } from 'react-native'
 import { connect } from 'react-redux'
 import { SearchBar } from 'react-native-elements'
 
-import { fetchImages, cleanSelectedImage } from '../actions/imagesActions'
+import { fetchImages, cleanSelectedImage, changeFirstSearchFlag } from '../actions/imagesActions'
 
 class SearchBarComp extends Component {
-  state = {
-    searchValue: ''
+  constructor(props) {
+    super(props)
+    this.state = {
+      searchValue: ''
+    }
   }
 
   updateSearch = searchValue => {
@@ -17,6 +20,7 @@ class SearchBarComp extends Component {
   handleSubmit = () => {
     console.log(this.searchRef.props.value)
     this.props.cleanSelectedImage()
+    this.props.changeFirstSearchFlag()
     this.props.fetchImages(this.searchRef.props.value)
   }
 
@@ -40,7 +44,11 @@ class SearchBarComp extends Component {
   }
 }
 
+// mapStateToProps = state => ({
+//   didFirstSearchWasMadeAlready: state.imagesReducer.didFirstSearchWasMadeAlready
+// });
+
 export default connect(
   null,
-  { fetchImages, cleanSelectedImage }
+  { fetchImages, cleanSelectedImage, changeFirstSearchFlag }
 )(SearchBarComp)

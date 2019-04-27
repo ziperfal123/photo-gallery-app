@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import SearchBarComp from '../components/SearchBarComp'
 import ImageItem from '../components/ImageItem'
+import NoResultComp from '../components/NoResultsComp'
 import ImageListItem from '../components/ImageListItem'
 import {
   fetchImages,
@@ -14,6 +15,10 @@ import {
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  favoritesBtn: {
+    fontSize: 45,
+    color: 'white'
   },
   imagesGridViewContainer: {
     height: '100%',
@@ -63,7 +68,7 @@ class HomeScreen extends Component {
     const title = 'HomeScreen'
     const headerRight = (
       <Button
-        style={{ fontSize: 45, color: 'white' }}
+        style={styles.favoritesBtn}
         onPress={() => navigation.navigate('FavoritesScreen')}
         title="Favorites"
       />
@@ -77,17 +82,18 @@ class HomeScreen extends Component {
   }
 
   eactImageGridView(item, key) {
-    // console.dir(item)
+    // this.setState({ didFirstSearchWasMadeAlready: true })
     return <ImageItem key={key} item={item} imgSource={item.largeImageURL} />
   }
 
   eactImageListView(item, key) {
+    // this.setState({ didFirstSearchWasMadeAlready: true })
     return (
       <ImageListItem
         key={key}
         imgSource={item.largeImageURL}
         item={item}
-        title={'someTitle'}
+        title={item.tags}
         views={item.views}
         likes={item.likes}
       />
@@ -105,16 +111,47 @@ class HomeScreen extends Component {
     this.setState({ shouldGridDisplay: false })
   }
 
+  checkWhatToRenderInHomeScreenBody() {
+    const { images, didFirstSearchWasMadeAlready } = this.props
+    console.log('indeed defined')
+    if (didFirstSearchWasMadeAlready === false) {
+      return <Text>Welcome Page</Text>
+    } else if (images.length === 0 && didFirstSearchWasMadeAlready === true) {
+      return <NoResultComp />
+    }
+    return this.state.shouldGridDisplay ? (
+      <View style={styles.imagesGridViewContainer}>{images.map(this.eactImageGridView)}</View>
+    ) : (
+      <View style={styles.imagesListViewContainer}>{images.map(this.eactImageListView)}</View>
+    )
+  }
+
   render() {
     console.log('renderingggg whowwooooooo')
-    const { images, selecetedImageItem, arrOfFavoriteImages } = this.props
-
+    const { selecetedImageItem } = this.props
+    let homeScreenPageBody
     if (
       selecetedImageItem !== '' &&
       selecetedImageItem !== null &&
       selecetedImageItem !== undefined
     )
       this.props.navigation.push('FullScreenDisplay')
+
+    // if (didFirstSearchWasMadeAlready === false) {
+    //   console.log('WELCOMEEE')
+    //   homeScreenPageBody = <Text>Welcome Page</Text>
+    // } else if (images.length === 0 && didFirstSearchWasMadeAlready === true) {
+    //   // console.log('NOT FOUND')
+    //   homeScreenPageBody = <NoResultComp />
+    // } else
+    //   homeScreenPageBody = this.state.shouldGridDisplay ? (
+    //     // console.log("GRIDDDD")
+    //     <View style={styles.imagesGridViewContainer}>{images.map(this.eactImageGridView)}</View>
+    //   ) : (
+    //     // console.log("LISTTTTT")
+    //     <View style={styles.imagesListViewContainer}>{images.map(this.eactImageListView)}</View>
+    //   )
+    homeScreenPageBody = this.checkWhatToRenderInHomeScreenBody()
 
     return (
       <View style={styles.container}>
@@ -134,13 +171,7 @@ class HomeScreen extends Component {
           </TouchableOpacity>
         </View>
 
-        <ScrollView>
-          {this.state.shouldGridDisplay ? (
-            <View style={styles.imagesGridViewContainer}>{images.map(this.eactImageGridView)}</View>
-          ) : (
-            <View style={styles.imagesListViewContainer}>{images.map(this.eactImageListView)}</View>
-          )}
-        </ScrollView>
+        <ScrollView>{homeScreenPageBody}</ScrollView>
       </View>
     )
   }
@@ -149,7 +180,8 @@ class HomeScreen extends Component {
 mapStateToProps = state => ({
   images: state.imagesReducer.images,
   selecetedImageItem: state.imagesReducer.selecetedImageItem,
-  arrOfFavoriteImages: state.imagesReducer.arrOfFavoriteImages
+  didFirstSearchWasMadeAlready: state.imagesReducer.didFirstSearchWasMadeAlready
+  // arrOfFavoriteImages: state.imagesReducer.arrOfFavoriteImages
 })
 
 export default connect(
