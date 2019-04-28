@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import { displayImage } from '../actions/imagesActions'
 
@@ -17,7 +18,6 @@ const styles = StyleSheet.create({
   imageStyle: {
     width: 100,
     height: 110
-    // borderRadius: 50
   },
   textContainerStyle: {
     flexDirection: 'column',
@@ -35,13 +35,21 @@ const styles = StyleSheet.create({
     fontSize: 26,
     marginTop: 3,
     marginLeft: 20
+  },
+  viewsTextStyle: {
+    marginLeft: 20,
+    fontSize: 14
+  },
+  likesTextStyle: {
+    marginLeft: 35,
+    fontSize: 14
   }
 })
 
 const ImageListItem = props => {
   const { item, title, views, likes, imgSource } = props
 
-  optimizeTitleForDisplaying = () => {
+  const optimizeTitleForDisplaying = () => {
     let optimizedTitle = title.split(',')
     let titleToDisplay = ''
     if (optimizedTitle.length > 3) optimizedTitle = optimizedTitle.splice(0, 3)
@@ -52,13 +60,13 @@ const ImageListItem = props => {
     return titleToDisplay
   }
 
-  handleImagePress = () => {
+  const handleImagePress = () => {
     props.displayImage(item)
   }
   const titleToDisplay = optimizeTitleForDisplaying()
 
   return (
-    <TouchableOpacity onPress={this.handleImagePress}>
+    <TouchableOpacity onPress={handleImagePress}>
       <View style={styles.containerStyle}>
         <Image
           style={styles.imageStyle}
@@ -69,13 +77,22 @@ const ImageListItem = props => {
         <View style={styles.textContainerStyle}>
           <Text style={styles.imgTitleStyle}>{titleToDisplay}</Text>
           <View style={styles.likesAndViewsContainerStyle}>
-            <Text style={{ marginLeft: 20, fontSize: 14 }}>Views: {views}</Text>
-            <Text style={{ marginLeft: 35, fontSize: 14 }}>Likes: {likes}</Text>
+            <Text style={styles.viewsTextStyle}>Views: {views}</Text>
+            <Text style={styles.likesTextStyle}>Likes: {likes}</Text>
           </View>
         </View>
       </View>
     </TouchableOpacity>
   )
+}
+
+ImageListItem.propTypes = {
+  displayImage: PropTypes.func,
+  item: PropTypes.object,
+  title: PropTypes.string,
+  views: PropTypes.string,
+  likes: PropTypes.string,
+  imgSource: PropTypes.string
 }
 
 export default connect(

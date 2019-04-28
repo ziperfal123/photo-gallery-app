@@ -17,7 +17,7 @@ export const fetchImages = searchQueryInput => dispatch => {
   let searchQueryAfterOptimization
   if (searchQueryInput === undefined || searchQueryInput === null || searchQueryInput === '')
     searchQueryAfterOptimization = 'big+dog'
-  // will be the defualt.. Change?
+  // will be the defualt.. Change? ???????????
   else {
     searchQueryAfterOptimization = optimizeQueryFunc(searchQueryInput)
   }
@@ -26,7 +26,6 @@ export const fetchImages = searchQueryInput => dispatch => {
   )
     .then(res => res.json())
     .then(data => {
-      console.log('dispatch!')
       dispatch({
         type: FETCH_IMAGES,
         payload: data.hits
@@ -56,12 +55,8 @@ export const pushImageToFavoritesInStore = imageObjToPush => dispatch => {
 }
 
 export const fetchFavoritesImagesFromAsyncStorage = () => async dispatch => {
-  console.log('in ACTIONS')
   let favoriteImagesFromAsyncStorage = await AsyncStorage.getItem('listOfFavoriteImagesURL')
-  // console.log(favoriteImagesFromAsyncStorage)
   favoriteImagesFromAsyncStorage = JSON.parse(favoriteImagesFromAsyncStorage)
-  console.log(favoriteImagesFromAsyncStorage)
-
   dispatch({
     type: FETCH_FAVORITES_IMAGES_FROM_ASYNC_STORAGE,
     payload: favoriteImagesFromAsyncStorage

@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, Button, ScrollView, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import SearchBarComp from '../components/SearchBarComp'
 import ImageItem from '../components/ImageItem'
 import NoResultComp from '../components/NoResultsComp'
 import ImageListItem from '../components/ImageListItem'
+import WelcomeComp from '../components/WelcomeComp'
 import {
   fetchImages,
   cleanSelectedImage,
@@ -62,6 +64,7 @@ class HomeScreen extends Component {
     }
     this.handleGridViewPress = this.handleGridViewPress.bind(this)
     this.handleListViewPress = this.handleListViewPress.bind(this)
+    this.checkWhatToRenderInHomeScreenBody = this.checkWhatToRenderInHomeScreenBody.bind(this)
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -73,6 +76,7 @@ class HomeScreen extends Component {
         title="Favorites"
       />
     )
+
     return { title, headerRight }
   }
 
@@ -82,12 +86,10 @@ class HomeScreen extends Component {
   }
 
   eactImageGridView(item, key) {
-    // this.setState({ didFirstSearchWasMadeAlready: true })
     return <ImageItem key={key} item={item} imgSource={item.largeImageURL} />
   }
 
   eactImageListView(item, key) {
-    // this.setState({ didFirstSearchWasMadeAlready: true })
     return (
       <ImageListItem
         key={key}
@@ -101,23 +103,20 @@ class HomeScreen extends Component {
   }
 
   handleGridViewPress() {
-    console.log('Grid View Grid View Grid View Grid View Grid View Grid View')
     this.props.cleanSelectedImage()
     this.setState({ shouldGridDisplay: true })
   }
   handleListViewPress() {
-    console.log('List View')
     this.props.cleanSelectedImage()
     this.setState({ shouldGridDisplay: false })
   }
 
   checkWhatToRenderInHomeScreenBody() {
     const { images, didFirstSearchWasMadeAlready } = this.props
-    console.log('indeed defined')
     if (didFirstSearchWasMadeAlready === false) {
-      return <Text>Welcome Page</Text>
+      return <WelcomeComp />
     } else if (images.length === 0 && didFirstSearchWasMadeAlready === true) {
-      return <NoResultComp />
+      return <NoResultComp messageToDisplay={'but hi!  try again...'} />
     }
     return this.state.shouldGridDisplay ? (
       <View style={styles.imagesGridViewContainer}>{images.map(this.eactImageGridView)}</View>
@@ -127,9 +126,7 @@ class HomeScreen extends Component {
   }
 
   render() {
-    console.log('renderingggg whowwooooooo')
     const { selecetedImageItem } = this.props
-    let homeScreenPageBody
     if (
       selecetedImageItem !== '' &&
       selecetedImageItem !== null &&
@@ -137,21 +134,7 @@ class HomeScreen extends Component {
     )
       this.props.navigation.push('FullScreenDisplay')
 
-    // if (didFirstSearchWasMadeAlready === false) {
-    //   console.log('WELCOMEEE')
-    //   homeScreenPageBody = <Text>Welcome Page</Text>
-    // } else if (images.length === 0 && didFirstSearchWasMadeAlready === true) {
-    //   // console.log('NOT FOUND')
-    //   homeScreenPageBody = <NoResultComp />
-    // } else
-    //   homeScreenPageBody = this.state.shouldGridDisplay ? (
-    //     // console.log("GRIDDDD")
-    //     <View style={styles.imagesGridViewContainer}>{images.map(this.eactImageGridView)}</View>
-    //   ) : (
-    //     // console.log("LISTTTTT")
-    //     <View style={styles.imagesListViewContainer}>{images.map(this.eactImageListView)}</View>
-    //   )
-    homeScreenPageBody = this.checkWhatToRenderInHomeScreenBody()
+    const homeScreenPageBody = this.checkWhatToRenderInHomeScreenBody()
 
     return (
       <View style={styles.container}>
@@ -170,19 +153,27 @@ class HomeScreen extends Component {
             <Text>List View</Text>
           </TouchableOpacity>
         </View>
-
         <ScrollView>{homeScreenPageBody}</ScrollView>
       </View>
     )
   }
 }
 
-mapStateToProps = state => ({
+const mapStateToProps = state => ({
   images: state.imagesReducer.images,
   selecetedImageItem: state.imagesReducer.selecetedImageItem,
   didFirstSearchWasMadeAlready: state.imagesReducer.didFirstSearchWasMadeAlready
-  // arrOfFavoriteImages: state.imagesReducer.arrOfFavoriteImages
 })
+
+HomeScreen.propTypes = {
+  fetchImages: PropTypes.func,
+  cleanSelectedImage: PropTypes.func,
+  fetchFavoritesImagesFromAsyncStorage: PropTypes.func,
+  images: PropTypes.array,
+  selecetedImageItem: PropTypes.object,
+  didFirstSearchWasMadeAlready: PropTypes.bool,
+  navigation: PropTypes.object
+}
 
 export default connect(
   mapStateToProps,

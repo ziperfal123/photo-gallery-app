@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View } from 'react-native'
 import { connect } from 'react-redux'
 import { SearchBar } from 'react-native-elements'
+import PropTypes from 'prop-types'
 
 import { fetchImages, cleanSelectedImage, changeFirstSearchFlag } from '../actions/imagesActions'
 
@@ -11,14 +12,15 @@ class SearchBarComp extends Component {
     this.state = {
       searchValue: ''
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleUpdateSearch = this.handleUpdateSearch.bind(this)
   }
 
-  updateSearch = searchValue => {
+  handleUpdateSearch(searchValue) {
     this.setState({ searchValue })
   }
 
-  handleSubmit = () => {
-    console.log(this.searchRef.props.value)
+  handleSubmit() {
     this.props.cleanSelectedImage()
     this.props.changeFirstSearchFlag()
     this.props.fetchImages(this.searchRef.props.value)
@@ -31,22 +33,24 @@ class SearchBarComp extends Component {
       <View>
         <SearchBar
           placeholder="Type Here..."
-          onChangeText={this.updateSearch}
+          onChangeText={this.handleUpdateSearch}
           onSubmitEditing={this.handleSubmit}
           value={searchValue}
           ref={searchRef => {
             this.searchRef = searchRef
           }}
-          lightTheme={(platform = 'default')} // YES????????
+          lightTheme
         />
       </View>
     )
   }
 }
 
-// mapStateToProps = state => ({
-//   didFirstSearchWasMadeAlready: state.imagesReducer.didFirstSearchWasMadeAlready
-// });
+SearchBarComp.propTypes = {
+  fetchImages: PropTypes.func,
+  cleanSelectedImage: PropTypes.func,
+  changeFirstSearchFlag: PropTypes.func
+}
 
 export default connect(
   null,
