@@ -4,7 +4,9 @@ import {
   CLEAN_SELECTED_IMAGE,
   FETCH_FAVORITES_IMAGES_FROM_ASYNC_STORAGE,
   PUSH_IMAGE_TO_FAVORITES,
-  CHANGE_FIRST_SEARCH_FLAG
+  CHANGE_FIRST_SEARCH_FLAG,
+  FIRE_LOADING_ANIMATION,
+  STOP_LOADING_ANIMATION
 } from './actionTypes'
 import AsyncStorage from '@react-native-community/async-storage'
 
@@ -14,6 +16,7 @@ function optimizeQueryFunc(searchQueryInput) {
 }
 
 export const fetchImages = searchQueryInput => dispatch => {
+  dispatch({ type: FIRE_LOADING_ANIMATION })
   let searchQueryAfterOptimization
   if (searchQueryInput === undefined || searchQueryInput === null || searchQueryInput === '')
     searchQueryAfterOptimization = 'big+dog'
@@ -30,9 +33,11 @@ export const fetchImages = searchQueryInput => dispatch => {
         type: FETCH_IMAGES,
         payload: data.hits
       })
+      setTimeout(() => {
+        dispatch({ type: STOP_LOADING_ANIMATION })
+      }, 230)
     })
 }
-
 export const displayImage = imageItemToDisplay => dispatch => {
   dispatch({
     type: DISPLAY_IMAGE,

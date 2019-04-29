@@ -1,5 +1,13 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Button, ScrollView, TouchableOpacity } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  ScrollView,
+  TouchableOpacity,
+  ActivityIndicator
+} from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -53,6 +61,11 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  loadingAniationStyle: {
+    marginTop: 200
+    // backgroundColor: 'green',
+    // display: 'true'
   }
 })
 
@@ -126,6 +139,8 @@ class HomeScreen extends Component {
   }
 
   render() {
+    console.log('Animation on..')
+    console.log(this.props.shouldLoadingAnimationDisplay)
     const { selecetedImageItem } = this.props
     if (
       selecetedImageItem !== '' &&
@@ -153,7 +168,11 @@ class HomeScreen extends Component {
             <Text>List View</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView>{homeScreenPageBody}</ScrollView>
+        {this.props.shouldLoadingAnimationDisplay ? (
+          <ActivityIndicator style={styles.loadingAniationStyle} size="large" color="#0000ff" />
+        ) : (
+          <ScrollView>{homeScreenPageBody}</ScrollView>
+        )}
       </View>
     )
   }
@@ -162,7 +181,8 @@ class HomeScreen extends Component {
 const mapStateToProps = state => ({
   images: state.imagesReducer.images,
   selecetedImageItem: state.imagesReducer.selecetedImageItem,
-  didFirstSearchWasMadeAlready: state.imagesReducer.didFirstSearchWasMadeAlready
+  didFirstSearchWasMadeAlready: state.imagesReducer.didFirstSearchWasMadeAlready,
+  shouldLoadingAnimationDisplay: state.imagesReducer.shouldLoadingAnimationDisplay
 })
 
 HomeScreen.propTypes = {
