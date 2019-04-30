@@ -94,7 +94,7 @@ class HomeScreen extends Component {
   }
 
   async componentDidMount() {
-    this.props.fetchImages()
+    // this.props.fetchImages()
     await this.props.fetchFavoritesImagesFromAsyncStorage()
   }
 
@@ -141,6 +141,7 @@ class HomeScreen extends Component {
   render() {
     console.log('Animation on..')
     console.log(this.props.shouldLoadingAnimationDisplay)
+    console.log(this.props.images)
     const { selecetedImageItem } = this.props
     if (
       selecetedImageItem !== '' &&
@@ -190,7 +191,7 @@ HomeScreen.propTypes = {
   cleanSelectedImage: PropTypes.func,
   fetchFavoritesImagesFromAsyncStorage: PropTypes.func,
   images: PropTypes.array,
-  selecetedImageItem: PropTypes.object,
+  selecetedImageItem: PropTypes.string,
   didFirstSearchWasMadeAlready: PropTypes.bool,
   navigation: PropTypes.object
 }

@@ -135,7 +135,7 @@ const mapStateToProps = state => ({
 })
 
 FullImageDisplayScreen.propTypes = {
-  selecetedImageItem: PropTypes.object,
+  selecetedImageItem: PropTypes.string,
   arrOfFavoriteImages: PropTypes.array,
   pushImageToFavoritesInStore: PropTypes.func,
   cleanSelectedImage: PropTypes.func,
