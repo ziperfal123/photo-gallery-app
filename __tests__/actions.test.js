@@ -1,18 +1,13 @@
-import { applyMiddleware, createStore, compose } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
 import thunk from 'redux-thunk'
 
 import rootReducer from '../src/reducers/index'
-import * as actionTypes from '../src/actions/actionTypes'
 import {
   cleanSelectedImage,
   changeFirstSearchFlag,
   displayImage,
   pushImageToFavoritesInStore
 } from '../src/actions/imagesActions'
-
-it('exmpale test', () => {
-  expect(true).toBe(true)
-})
 
 const middlewares = [thunk]
 const initialState = {}
@@ -169,7 +164,6 @@ describe('actions functionality test', () => {
   it('changeFirstSearchFlag Action test', () => {
     const store = createStore(rootReducer, { ...initialState }, applyMiddleware(...middlewares))
     store.dispatch(changeFirstSearchFlag())
-    // console.log(store.getState().imagesReducer)
     expect(store.getState().imagesReducer.didFirstSearchWasMadeAlready).toEqual(true)
   })
 
@@ -177,15 +171,13 @@ describe('actions functionality test', () => {
     const store = createStore(rootReducer, { ...initialState }, applyMiddleware(...middlewares))
     const dummyImageObjToTest = { dommyImage: 'NBA', dummyImageLikes: 100 }
     store.dispatch(displayImage(dummyImageObjToTest))
-    // console.log(store.getState().imagesReducer)
     expect(store.getState().imagesReducer.selecetedImageItem).toEqual(dummyImageObjToTest)
   })
 
-  it('pushImageToFavoritesInStore', () => {
+  it('pushImageToFavoritesInStore Action test', () => {
     const store = createStore(rootReducer, { ...initialState }, applyMiddleware(...middlewares))
     const dummyImageObjToTest = { dommyImage: 'NBA', dummyImageLikes: 100 }
     store.dispatch(pushImageToFavoritesInStore(dummyImageObjToTest))
-    // console.log(store.getState().imagesReducer)
     expect(store.getState().imagesReducer.arrOfFavoriteImages).toContain(dummyImageObjToTest)
   })
 })

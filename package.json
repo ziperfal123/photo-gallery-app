@@ -40,5 +40,26 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "checkSubmission": {
+      "ex": "2",
+      "students": [
+          {
+              "id": "311133433",
+              "fullName": "Amit Levy",
+              "email": "amit.p.levy@gmail.com"
+          },
+          {
+              "id": "203311303",
+              "fullName": "Yaniv Ziperfal",
+              "email": "ziperfal123@gmail.com"
+          }
+      ],
+      "os": "Mac",
+      "device": "iOS",
+      "deliveryDate": "04/30/2019",
+      "delay": false
+      
   }
+
 }

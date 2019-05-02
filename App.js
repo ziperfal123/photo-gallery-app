@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 import HomeScreen from './src/screens/HomeScreen'
 import FavoritesScreen from './src/screens/FavoritesScreen'
@@ -13,9 +12,9 @@ const AppStackNavigator = createStackNavigator(
   {
     defaultNavigationOptions: {
       headerStyle: {
-        backgroundColor: 'blue'
+        backgroundColor: '#8b5d5d'
       },
-      headerTintColor: '#fff',
+      headerTintColor: '#f0e9e9',
       headerTitleStyle: {
         fontWeight: 'bold'
       }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
+import PropTypes from 'prop-types'
 
 const styles = StyleSheet.create({
   container: {
@@ -32,6 +33,10 @@ const NoResultComp = ({ messageToDisplay }) => {
       <Text style={styles.tryAgainMsgStyle}>{messageToDisplay}</Text>
     </View>
   )
+}
+
+NoResultComp.propTypes = {
+  messageToDisplay: PropTypes.string
 }
 
 export default NoResultComp

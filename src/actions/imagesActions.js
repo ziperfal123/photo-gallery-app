@@ -9,7 +9,6 @@ import {
   STOP_LOADING_ANIMATION
 } from './actionTypes'
 import AsyncStorage from '@react-native-community/async-storage'
-import store from '../store'
 
 function optimizeQueryFunc(searchQueryInput) {
   const optimizedSearchQueryInput = searchQueryInput.replace(/ /g, '+')
@@ -17,12 +16,10 @@ function optimizeQueryFunc(searchQueryInput) {
 }
 
 export const fetchImages = searchQueryInput => dispatch => {
-  console.log('>>> in fetchImags()')
   dispatch({ type: FIRE_LOADING_ANIMATION })
   let searchQueryAfterOptimization
   if (searchQueryInput === undefined || searchQueryInput === null || searchQueryInput === '')
     searchQueryAfterOptimization = 'big+dog'
-  // will be the defualt.. Change? ???????????
   else {
     searchQueryAfterOptimization = optimizeQueryFunc(searchQueryInput)
   }
@@ -35,9 +32,6 @@ export const fetchImages = searchQueryInput => dispatch => {
         type: FETCH_IMAGES,
         payload: data.hits
       })
-      // setTimeout(() => {
-      //   dispatch({ type: STOP_LOADING_ANIMATION })
-      // }, 230)
       dispatch({ type: STOP_LOADING_ANIMATION })
     })
 }

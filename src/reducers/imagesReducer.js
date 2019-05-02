@@ -18,8 +18,6 @@ const initialState = {
 }
 
 export default function(state = initialState, action) {
-  // console.log('action.type')
-  // console.log(action.type)
   switch (action.type) {
     case FETCH_IMAGES:
       return {
@@ -58,14 +56,12 @@ export default function(state = initialState, action) {
         didFirstSearchWasMadeAlready: true
       }
     case FIRE_LOADING_ANIMATION:
-      // console.log("FIRE_LOADING_ANIMATION");
       return {
         ...state,
         shouldLoadingAnimationDisplay: true
       }
 
     case STOP_LOADING_ANIMATION:
-      // console.log("STOP_LOADING_ANIMATION");
       return {
         ...state,
         shouldLoadingAnimationDisplay: false

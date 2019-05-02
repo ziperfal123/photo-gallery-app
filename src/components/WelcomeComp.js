@@ -3,20 +3,27 @@ import { Text, View, StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     marginTop: 100,
-    // justifyContent: 'center'
-    alignItems: 'center'
+    height: '100%',
+    alignItems: 'center',
+    backgroundColor: '#f0e9e9'
   },
-  MessageStyle: {
-    fontSize: 30,
+  bigMessageStyle: {
+    marginTop: 15,
+    fontSize: 40,
+    fontWeight: '500'
+  },
+  smallMessageStyle: {
+    marginTop: 30,
+    fontSize: 22,
     fontWeight: '500'
   }
 })
 const WelcomeComp = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.MessageStyle}>WELCOME COMPONENT</Text>
+      <Text style={styles.bigMessageStyle}>Photo Gallery App</Text>
+      <Text style={styles.smallMessageStyle}>Search it, Find it, Like it.</Text>
     </View>
   )
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { View, Image, StyleSheet, TouchableHighlight } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { connect } from 'react-redux'
 import { HeaderBackButton } from 'react-navigation'
@@ -16,14 +16,15 @@ const styles = StyleSheet.create({
     height: 500,
     marginTop: '10%'
   },
-
   btnStyle: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 25,
+    marginTop: 50,
     width: 100,
-    height: 40,
-    backgroundColor: 'silver'
+    height: 60
+  },
+  backBtn: {
+    backgroundColor: '#f0e9e9'
   }
 })
 
@@ -57,7 +58,9 @@ class FullImageDisplayScreen extends Component {
     return {
       headerLeft: (
         <HeaderBackButton
+          style={styles.backBtn}
           backTitleVisible
+          tintColor="#f0e9e9"
           title="Back"
           onPress={() => {
             setTimeout(() => {
@@ -74,10 +77,6 @@ class FullImageDisplayScreen extends Component {
     const { selecetedImageItem } = this.props
     saveImageURLToAsyncStorage(selecetedImageItem)
     this.props.pushImageToFavoritesInStore(selecetedImageItem)
-
-    // await AsyncStorage.removeItem('listOfFavoriteImagesURL', (e, er) => {
-    //   console.log('deleted!')
-    // })
   }
 
   isDisplayedImageInFavoritesList() {
@@ -98,16 +97,16 @@ class FullImageDisplayScreen extends Component {
     ) {
       if (this.isDisplayedImageInFavoritesList() === false) {
         return (
-          <TouchableOpacity style={styles.btnStyle} onPress={this.handleLikeBtnPress}>
-            <Text>LIKE!</Text>
-          </TouchableOpacity>
+          <TouchableHighlight style={styles.btnStyle} onPress={this.handleLikeBtnPress}>
+            <Image source={require('./heart.png')} />
+          </TouchableHighlight>
         )
       }
     } else
       return (
-        <TouchableOpacity style={styles.btnStyle} onPress={this.handleLikeBtnPress}>
-          <Text>LIKE!</Text>
-        </TouchableOpacity>
+        <TouchableHighlight style={styles.btnStyle} onPress={this.handleLikeBtnPress}>
+          <Image source={require('./heart.png')} />
+        </TouchableHighlight>
       )
   }
 

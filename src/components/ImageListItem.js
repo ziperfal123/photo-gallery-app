@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    backgroundColor: 'green',
+    backgroundColor: '#f0e9e9',
     marginTop: 8
   },
 
@@ -20,13 +20,14 @@ const styles = StyleSheet.create({
     height: 110
   },
   textContainerStyle: {
+    color: '#f0e9e9',
     flexDirection: 'column',
     justifyContent: 'space-around',
     width: '100%',
-    backgroundColor: 'grey'
+    backgroundColor: '#f0e9e9'
   },
   likesAndViewsContainerStyle: {
-    backgroundColor: 'gold',
+    backgroundColor: '#aa7070',
     flexDirection: 'row',
     justifyContent: 'flex-start'
   },

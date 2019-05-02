@@ -1,22 +1,22 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import ImageItem from '../components/ImageItem'
 import NoResultsFoundComp from '../components/NoResultsComp'
-import PropTypes from 'prop-types'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF'
+    backgroundColor: '#f0e9e9'
   },
   imagesGridViewContainer: {
     height: '100%',
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#f0e9e9',
     marginLeft: 2.5
   }
 })

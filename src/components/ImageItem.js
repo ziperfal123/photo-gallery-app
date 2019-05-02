@@ -33,7 +33,8 @@ const ImageItem = props => {
 }
 
 ImageItem.propTypes = {
-  displayImage: PropTypes.func
+  displayImage: PropTypes.func,
+  item: PropTypes.object
 }
 
 export default connect(

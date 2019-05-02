@@ -1,9 +1,9 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux'
 
-import imagesReducer from "./imagesReducer";
+import imagesReducer from './imagesReducer'
 
 const rootReducer = combineReducers({
-  imagesReducer: imagesReducer
-});
+  imagesReducer
+})
 
-export default rootReducer;
+export default rootReducer

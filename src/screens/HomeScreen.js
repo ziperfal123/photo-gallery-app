@@ -16,15 +16,12 @@ import ImageItem from '../components/ImageItem'
 import NoResultComp from '../components/NoResultsComp'
 import ImageListItem from '../components/ImageListItem'
 import WelcomeComp from '../components/WelcomeComp'
-import {
-  fetchImages,
-  cleanSelectedImage,
-  fetchFavoritesImagesFromAsyncStorage
-} from '../actions/imagesActions'
+import { cleanSelectedImage, fetchFavoritesImagesFromAsyncStorage } from '../actions/imagesActions'
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#f0e9e9'
   },
   favoritesBtn: {
     fontSize: 45,
@@ -35,7 +32,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#f0e9e9',
     marginLeft: 2.5
   },
   imagesListViewContainer: {
@@ -46,8 +43,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 40,
     borderWidth: 2,
-    borderColor: 'blue',
-    backgroundColor: 'pink'
+    borderColor: '#8b5d5d',
+    backgroundColor: '#8b5d5d'
   },
   btnStyle: {
     width: '50%',
@@ -57,15 +54,13 @@ const styles = StyleSheet.create({
   },
   selectedBtnStyle: {
     width: '50%',
-    backgroundColor: 'blue',
+    backgroundColor: '#c19191',
     borderColor: 'black',
     justifyContent: 'center',
     alignItems: 'center'
   },
   loadingAniationStyle: {
     marginTop: 200
-    // backgroundColor: 'green',
-    // display: 'true'
   }
 })
 
@@ -86,6 +81,7 @@ class HomeScreen extends Component {
       <Button
         style={styles.favoritesBtn}
         onPress={() => navigation.navigate('FavoritesScreen')}
+        color="#f0e9e9"
         title="Favorites"
       />
     )
@@ -94,7 +90,6 @@ class HomeScreen extends Component {
   }
 
   async componentDidMount() {
-    // this.props.fetchImages()
     await this.props.fetchFavoritesImagesFromAsyncStorage()
   }
 
@@ -139,9 +134,6 @@ class HomeScreen extends Component {
   }
 
   render() {
-    console.log('Animation on..')
-    console.log(this.props.shouldLoadingAnimationDisplay)
-    console.log(this.props.images)
     const { selecetedImageItem } = this.props
     if (
       selecetedImageItem !== '' &&
@@ -170,7 +162,7 @@ class HomeScreen extends Component {
           </TouchableOpacity>
         </View>
         {this.props.shouldLoadingAnimationDisplay ? (
-          <ActivityIndicator style={styles.loadingAniationStyle} size="large" color="#0000ff" />
+          <ActivityIndicator style={styles.loadingAniationStyle} size="large" color="#8b5d5d" />
         ) : (
           <ScrollView>{homeScreenPageBody}</ScrollView>
         )}
@@ -187,7 +179,6 @@ const mapStateToProps = state => ({
 })
 
 HomeScreen.propTypes = {
-  fetchImages: PropTypes.func,
   cleanSelectedImage: PropTypes.func,
   fetchFavoritesImagesFromAsyncStorage: PropTypes.func,
   images: PropTypes.array,
@@ -198,5 +189,5 @@ HomeScreen.propTypes = {
 
 export default connect(
   mapStateToProps,
-  { fetchImages, cleanSelectedImage, fetchFavoritesImagesFromAsyncStorage }
+  { cleanSelectedImage, fetchFavoritesImagesFromAsyncStorage }
 )(HomeScreen)

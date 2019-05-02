@@ -1,17 +1,13 @@
 import rootReducer from '../src/reducers'
 import imagesReducer from '../src/reducers/imagesReducer'
 import thunk from 'redux-thunk'
-import { applyMiddleware, createStore, compose } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
 
-// import fetch from 'isomorphic-fetch'
-
-// import fetchedDataMock from './mocks/fetchedDataMock'
 import * as actionsTypes from '../src/actions/actionTypes'
 
 const initialState = {}
 const middlewares = [thunk]
 const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))
-// console.log(store.getState())
 
 it('exmpale test', () => {
   expect(true).toBe(true)
@@ -100,7 +96,4 @@ describe('actions types test', () => {
       false
     )
   })
-
-  // FETCH_IMAGES
-  //fetchFavoritesImagesFromAsyncStorage
 })
